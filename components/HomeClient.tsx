@@ -318,21 +318,26 @@ export default function HomeClient() {
                   </div>
                 </div>
 
-                {/* Tagline with React Bits VariableProximity effect */}
-                <p
+                {/* Tagline — bold static text on mobile, bold VariableProximity on desktop */}
+                <p className="block sm:hidden mt-1 text-sm font-semibold text-white/90 leading-snug w-full max-w-2xl text-center">
+                  A premier cybersecurity capture the flag competition. Brought to you through a special
+                  collaboration between Hack The Box Chennai (SRMIST) and Women in CyberSecurity (WiCyS SRMIST),
+                  as we come together to organize this event.
+                </p>
+                <div
                   ref={taglineRef}
-                  className="mt-1 text-sm md:text-base text-gray-300 leading-relaxed w-full max-w-2xl select-none"
+                  className="hidden sm:block mt-1 text-base text-white/90 leading-relaxed w-full max-w-2xl select-none"
                 >
                   <VariableProximity
                     label="A premier cybersecurity capture the flag competition. Brought to you through a special collaboration between Hack The Box Chennai (SRMIST) and Women in CyberSecurity (WiCyS SRMIST), as we come together to organize this event."
-                    className="text-gray-300 tracking-wide cursor-default"
-                    fromFontVariationSettings="'wght' 300, 'opsz' 14"
-                    toFontVariationSettings="'wght' 850, 'opsz' 36"
+                    className="text-white/90 tracking-wide cursor-default"
+                    fromFontVariationSettings="'wght' 650, 'opsz' 18"
+                    toFontVariationSettings="'wght' 950, 'opsz' 36"
                     containerRef={taglineRef}
                     radius={100}
                     falloff="gaussian"
                   />
-                </p>
+                </div>
 
                 {/* ── Countdown ──────────────────────────────────────── */}
                 <Countdown />
