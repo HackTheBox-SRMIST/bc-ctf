@@ -6,7 +6,6 @@
   height: 0;
   pointer-events: none;
   z-index: 2147483647;
-  mix-blend-mode: difference;
   transform: translate(-50%, -50%);
 }
 

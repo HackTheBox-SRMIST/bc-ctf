@@ -6,12 +6,16 @@ import Link from "next/link";
 import ParticleTextLoader from "./ParticleTextLoader";
 import Countdown from "./Countdown";
 import GlyphField from "./GlyphField";
+import SpotlightCard from "./SpotlightCard";
 
 // Antigravity uses Three.js/R3F — must be client-only, no SSR
 const Antigravity = dynamic(() => import("./Antigravity"), { ssr: false });
 
 // DecryptedText uses motion (motion/react) — browser-only, no SSR
 const DecryptedText = dynamic(() => import("./DecryptedText"), { ssr: false });
+
+// VariableProximity text animation from React Bits
+const VariableProximity = dynamic(() => import("./VariableProximity"), { ssr: false });
 
 // ---------------------------------------------------------------------------
 // TODO: Add more wallpaper images to /public and list them here.
@@ -169,6 +173,7 @@ export default function HomeClient() {
   // timed so the ring forms while the Shuffle strip-reveal is still running.
   const [showAntigravity, setShowAntigravity] = useState(false);
   const heroText = useScramble("BLACK CAT CTF", 1200, 400);
+  const taglineRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -226,7 +231,7 @@ export default function HomeClient() {
             </div>
 
             <div className="flex flex-wrap justify-center items-center gap-2 md:gap-6 header-interactive-group w-full md:w-auto mt-2 md:mt-0">
-              <div className="flex items-center gap-2 md:gap-4">
+              <div className="cursor-target flex items-center gap-2 md:gap-4 px-2 py-1 rounded-lg transition-all hover:bg-white/5">
                 <span className="text-base md:text-lg font-medium text-white/70 htb-text">HTB</span>
                 <span className="text-base md:text-lg font-medium text-white/70 chennai-text"> Chennai</span>
                 <span className="text-base md:text-lg font-medium text-white/50">|</span>
@@ -268,7 +273,7 @@ export default function HomeClient() {
                   <div className="relative" style={{ height: "48px" }}>
                     {/* h2 sits above (z-10) the canvas */}
                      <h2
-                       className="absolute inset-0 flex items-center text-xl md:text-2xl lg:text-3xl font-tech font-semibold text-white/80 tracking-widest z-10"
+                       className="absolute inset-0 flex items-center justify-center sm:justify-start text-xl md:text-2xl lg:text-3xl font-tech font-semibold text-white/80 tracking-widest z-10"
                        aria-label="BC-CTF"
                      >
                        <DecryptedText
@@ -313,36 +318,73 @@ export default function HomeClient() {
                   </div>
                 </div>
 
-                {/* Tagline */}
-                <p className="mt-1 text-sm md:text-base text-gray-300 leading-snug w-full max-w-2xl">
-                  A premier cybersecurity capture the flag competition. Brought to you through a special
-                  collaboration between Hack The Box Chennai (SRMIST) and Women in CyberSecurity (WiCyS SRMIST),
-                  as we come together to organize this event.
+                {/* Tagline with React Bits VariableProximity effect */}
+                <p
+                  ref={taglineRef}
+                  className="mt-1 text-sm md:text-base text-gray-300 leading-relaxed w-full max-w-2xl select-none"
+                >
+                  <VariableProximity
+                    label="A premier cybersecurity capture the flag competition. Brought to you through a special collaboration between Hack The Box Chennai (SRMIST) and Women in CyberSecurity (WiCyS SRMIST), as we come together to organize this event."
+                    className="text-gray-300 tracking-wide cursor-default"
+                    fromFontVariationSettings="'wght' 300, 'opsz' 14"
+                    toFontVariationSettings="'wght' 850, 'opsz' 36"
+                    containerRef={taglineRef}
+                    radius={100}
+                    falloff="gaussian"
+                  />
                 </p>
 
                 {/* ── Countdown ──────────────────────────────────────── */}
                 <Countdown />
 
                 {/* ── CTA buttons ────────────────────────────────────── */}
-                <div className="mt-2 flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
-                  {/* TODO: Replace href with the final CTA URL when confirmed */}
+                <div className="mt-2 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+                  {/* Laser Border Wrapper for Register Now */}
+                  <div className="relative p-[2px] rounded-full overflow-hidden inline-flex w-full sm:w-auto group">
+                    {/* Orbiting Laser Beam */}
+                    <div
+                      className="absolute inset-[-200%] animate-[spin_3s_linear_infinite] pointer-events-none"
+                      style={{
+                        background:
+                          "conic-gradient(from 0deg at 50% 50%, transparent 0%, transparent 70%, #9fef00 88%, #ffffff 96%, #9fef00 100%)",
+                      }}
+                    />
+                    {/* Laser Bloom Glow */}
+                    <div
+                      className="absolute inset-[-200%] animate-[spin_3s_linear_infinite] pointer-events-none blur-[4px] opacity-80"
+                      style={{
+                        background:
+                          "conic-gradient(from 0deg at 50% 50%, transparent 0%, transparent 70%, #9fef00 88%, #ffffff 96%, #9fef00 100%)",
+                      }}
+                    />
+                    <Link
+                      href="https://htbchennai.in/events"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`relative z-10 cursor-target ${buttonPrimary} w-full sm:w-auto shadow-[0_0_24px_rgba(159,239,0,0.35)]`}
+                    >
+                      Register Now
+                    </Link>
+                  </div>
+
+                  {/* Join Event Group with White Glow & WhatsApp link */}
                   <Link
-                    href="https://htbchennai.in/events"
+                    href="https://chat.whatsapp.com/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`cursor-target ${buttonPrimary} w-full sm:w-auto`}
+                    className={`cursor-target ${buttonSecondary} w-full sm:w-auto !border-white text-white shadow-[0_0_22px_rgba(255,255,255,0.45),inset_0_0_12px_rgba(255,255,255,0.2)] hover:shadow-[0_0_35px_rgba(255,255,255,0.85),inset_0_0_20px_rgba(255,255,255,0.35)] hover:bg-white/15 active:bg-white active:text-black active:shadow-[0_0_50px_#ffffff,inset_0_0_30px_#ffffff] active:scale-95 transition-all duration-200`}
                   >
-                    Register Now
-                  </Link>
-                  <button className={`cursor-target ${buttonSecondary} w-full sm:w-auto`}>
                     Join Event Group
-                  </button>
+                  </Link>
                 </div>
               </div>
 
-              {/* ── Info boxes ─────────────────────────────────────────── */}
+              {/* ── Info boxes with Spotlight ───────────────────────────── */}
               <div className="flex flex-col w-full gap-6">
-                <div className="cursor-target info-box w-full bg-black/40 backdrop-blur-md p-6 rounded-xl border border-white/10 flex flex-col md:flex-row gap-4 items-start md:items-center">
+                <SpotlightCard
+                  spotlightColor="rgba(159, 239, 0, 0.16)"
+                  className="cursor-target info-box w-full p-6"
+                >
                   <h3 className="text-xl font-mono font-bold text-[#9fef00] md:w-1/4 md:border-r border-white/10 md:pr-4 md:border-b-0 border-b pb-2 md:pb-0">
                     About Event
                   </h3>
@@ -351,9 +393,12 @@ export default function HomeClient() {
                     across multiple domains, breaking into systems, discovering vulnerabilities, and extracting
                     hidden flags.
                   </p>
-                </div>
+                </SpotlightCard>
 
-                <div className="cursor-target info-box w-full bg-black/40 backdrop-blur-md p-6 rounded-xl border border-white/10 flex flex-col md:flex-row gap-4 items-start md:items-center">
+                <SpotlightCard
+                  spotlightColor="rgba(159, 239, 0, 0.16)"
+                  className="cursor-target info-box w-full p-6"
+                >
                   <h3 className="text-xl font-mono font-bold text-[#9fef00] md:w-1/4 md:border-r border-white/10 md:pr-4 md:border-b-0 border-b pb-2 md:pb-0">
                     Event Details
                   </h3>
@@ -364,7 +409,7 @@ export default function HomeClient() {
                     <p><span className="font-semibold text-white">Time:</span> 10:00 AM IST</p>
                     <p><span className="font-semibold text-white">Pre-Requisites:</span> Charged laptop with Kali Linux (VMware/VirtualBox).</p>
                   </div>
-                </div>
+                </SpotlightCard>
               </div>
             </div>
           </main>
