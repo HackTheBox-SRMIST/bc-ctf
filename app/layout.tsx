@@ -1,7 +1,7 @@
 import BackgroundEffects from "@/components/BackgroundEffects";
 import CursorProvider from "@/components/CursorProvider";
 import type { Metadata } from "next";
-import { Press_Start_2P, Roboto_Mono, Share_Tech_Mono } from "next/font/google";
+import { Press_Start_2P, Roboto_Flex, Roboto_Mono, Share_Tech_Mono } from "next/font/google";
 import "./globals.css";
 
 const pixelFont = Press_Start_2P({
@@ -24,6 +24,12 @@ const monoFont = Roboto_Mono({
   display: "swap",
 });
 
+const robotoFlex = Roboto_Flex({
+  variable: "--font-roboto-flex",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "BC-CTF",
   description: "Black Cat CTF",
@@ -37,7 +43,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="no-scrollbar overflow-hidden" suppressHydrationWarning>
       <body
-        className={`${pixelFont.variable} ${monoFont.variable} ${techFont.variable} antialiased no-scrollbar overflow-hidden w-full h-screen`}
+        className={`${pixelFont.variable} ${monoFont.variable} ${techFont.variable} ${robotoFlex.variable} antialiased no-scrollbar overflow-hidden w-full h-screen`}
         suppressHydrationWarning
       >
         <BackgroundEffects />

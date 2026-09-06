@@ -38,7 +38,7 @@ export default function GlyphField() {
     canvas.height = height;
 
     const isMobile = () => window.innerWidth < 768;
-    const particleCount = () => (isMobile() ? 25 : 60);
+    const particleCount = () => (isMobile() ? 38 : 90);
 
     // Mouse state — normalised -0.5..0.5
     const mouse = { nx: 0, ny: 0, smoothNx: 0, smoothNy: 0 };
@@ -67,12 +67,12 @@ export default function GlyphField() {
         x,
         y: startY,
         char: GLYPHS[Math.floor(Math.random() * GLYPHS.length)],
-        speed: 0.3 + depth * 0.5,                            // px/frame (very slow)
-        opacity: 0.08 + depth * 0.18,                        // 8–26%
-        size: mobile ? 10 + depth * 8 : 12 + depth * 14,    // 12–26px desktop
+        speed: 0.4 + depth * 0.6,                            // smooth, steady descent
+        opacity: 0.12 + depth * 0.26,                        // 12–38% (richer presence)
+        size: mobile ? 11 + depth * 9 : 13 + depth * 15,    // 13–28px desktop
         depth,
         driftPhase: Math.random() * Math.PI * 2,
-        driftAmp: 0.5 + depth * 1.5,                         // 0.5–2px lateral swing
+        driftAmp: 0.8 + depth * 1.8,                         // graceful lateral float
       };
     }
 
@@ -106,6 +106,15 @@ export default function GlyphField() {
 
         ctx.globalAlpha = g.opacity;
         ctx.fillStyle = HTB_GREEN;
+
+        // Subtle phosphor glow on foreground glyphs
+        if (g.depth > 0.55) {
+          ctx.shadowColor = HTB_GREEN;
+          ctx.shadowBlur = 6 * g.depth;
+        } else {
+          ctx.shadowBlur = 0;
+        }
+
         ctx.font = `${g.size}px monospace`;
         ctx.fillText(g.char, drawX, drawY);
 
@@ -113,7 +122,7 @@ export default function GlyphField() {
         g.y += g.speed;
 
         // Occasionally swap character mid-fall for flicker effect
-        if (Math.random() < 0.002) {
+        if (Math.random() < 0.005) {
           g.char = GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
         }
 
