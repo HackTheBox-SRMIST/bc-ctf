@@ -204,7 +204,7 @@ export default function HomeClient() {
           {/* ── Header ─────────────────────────────────────────────────── */}
           <header className="relative z-30 flex-none flex flex-col md:flex-row items-center justify-between p-4 lg:p-8 gap-4 md:gap-0 [text-shadow:0_2px_4px_rgba(0,0,0,0.8)]">
             <div className="flex items-center w-full md:w-auto justify-center md:justify-start">
-              <Link href="/" className="flex items-center gap-2 md:gap-4 transition-opacity hover:opacity-80">
+              <Link href="/" className="cursor-target flex items-center gap-2 md:gap-4 transition-opacity hover:opacity-80">
                 <Image
                   src="/HTB_SRMIST.png"
                   alt="HTB SRMIST Logo"
@@ -236,7 +236,7 @@ export default function HomeClient() {
                 </span>
               </div>
               <div className="block h-4 md:h-5 w-[2px] bg-white/50 mx-1 md:mx-2" />
-              <Link href="/" className="text-base md:text-lg font-tech font-bold tracking-wider">
+              <Link href="/" className="cursor-target text-base md:text-lg font-tech font-bold tracking-wider">
                 <span className="text-white/70 bc-ctf-text transition-all duration-300">BC-CTF</span>
               </Link>
             </div>
@@ -330,11 +330,11 @@ export default function HomeClient() {
                     href="https://htbchennai.in/events"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`${buttonPrimary} w-full sm:w-auto`}
+                    className={`cursor-target ${buttonPrimary} w-full sm:w-auto`}
                   >
                     Register Now
                   </Link>
-                  <button className={`${buttonSecondary} w-full sm:w-auto`}>
+                  <button className={`cursor-target ${buttonSecondary} w-full sm:w-auto`}>
                     Join Event Group
                   </button>
                 </div>
@@ -342,7 +342,7 @@ export default function HomeClient() {
 
               {/* ── Info boxes ─────────────────────────────────────────── */}
               <div className="flex flex-col w-full gap-6">
-                <div className="info-box w-full bg-black/40 backdrop-blur-md p-6 rounded-xl border border-white/10 flex flex-col md:flex-row gap-4 items-start md:items-center">
+                <div className="cursor-target info-box w-full bg-black/40 backdrop-blur-md p-6 rounded-xl border border-white/10 flex flex-col md:flex-row gap-4 items-start md:items-center">
                   <h3 className="text-xl font-mono font-bold text-[#9fef00] md:w-1/4 md:border-r border-white/10 md:pr-4 md:border-b-0 border-b pb-2 md:pb-0">
                     About Event
                   </h3>
@@ -353,7 +353,7 @@ export default function HomeClient() {
                   </p>
                 </div>
 
-                <div className="info-box w-full bg-black/40 backdrop-blur-md p-6 rounded-xl border border-white/10 flex flex-col md:flex-row gap-4 items-start md:items-center">
+                <div className="cursor-target info-box w-full bg-black/40 backdrop-blur-md p-6 rounded-xl border border-white/10 flex flex-col md:flex-row gap-4 items-start md:items-center">
                   <h3 className="text-xl font-mono font-bold text-[#9fef00] md:w-1/4 md:border-r border-white/10 md:pr-4 md:border-b-0 border-b pb-2 md:pb-0">
                     Event Details
                   </h3>

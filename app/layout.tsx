@@ -1,4 +1,5 @@
 import BackgroundEffects from "@/components/BackgroundEffects";
+import CursorProvider from "@/components/CursorProvider";
 import type { Metadata } from "next";
 import { Press_Start_2P, Roboto_Mono, Share_Tech_Mono } from "next/font/google";
 import "./globals.css";
@@ -40,6 +41,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <BackgroundEffects />
+        <CursorProvider />
         {children}
       </body>
     </html>
