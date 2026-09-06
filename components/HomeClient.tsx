@@ -268,7 +268,7 @@ export default function HomeClient() {
                   <div className="relative" style={{ height: "48px" }}>
                     {/* h2 sits above (z-10) the canvas */}
                      <h2
-                       className="absolute inset-0 flex items-center text-xl md:text-2xl lg:text-3xl font-tech font-semibold text-white/80 tracking-widest z-10"
+                       className="absolute inset-0 flex items-center justify-center sm:justify-start text-xl md:text-2xl lg:text-3xl font-tech font-semibold text-white/80 tracking-widest z-10"
                        aria-label="BC-CTF"
                      >
                        <DecryptedText
