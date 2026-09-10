@@ -17,11 +17,11 @@ export default function CursorProvider() {
 
   return (
     <>
-      <ClickSpark sparkColor="#9fef00" sparkCount={9} sparkSpeed={4.5} />
+      <ClickSpark sparkColor="#22d3ee" sparkCount={9} sparkSpeed={4.5} />
       <TargetCursor
         targetSelector=".cursor-target"
-        cursorColor="#ffffff"
-        cursorColorOnTarget="#9fef00"
+        cursorColor="#22d3ee"
+        cursorColorOnTarget="#22d3ee"
         spinDuration={2}
         hideDefaultCursor
         hoverDuration={0.2}

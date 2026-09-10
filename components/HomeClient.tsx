@@ -14,9 +14,6 @@ const Antigravity = dynamic(() => import("./Antigravity"), { ssr: false });
 // DecryptedText uses motion (motion/react) — browser-only, no SSR
 const DecryptedText = dynamic(() => import("./DecryptedText"), { ssr: false });
 
-// VariableProximity text animation from React Bits
-const VariableProximity = dynamic(() => import("./VariableProximity"), { ssr: false });
-
 // ---------------------------------------------------------------------------
 // TODO: Add more wallpaper images to /public and list them here.
 //       Currently only one image exists; add more for a meaningful crossfade.
@@ -152,15 +149,11 @@ function useScramble(target: string, duration = 1200, startDelay = 200) {
   return display;
 }
 
-// ---------------------------------------------------------------------------
-// Button styles — HTB green primary, white-border secondary
-
-// ---------------------------------------------------------------------------
+// Button styles — White button with orbiting blue laser border
 const buttonBase =
   "h-[48px] px-8 rounded-full text-base font-semibold transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-black flex items-center justify-center [text-shadow:none]";
 
-// HTB green — the ONLY saturated-colour element on the page
-const buttonPrimary = `${buttonBase} bg-[#9fef00] text-black active:bg-[#7ec900] hover:scale-105 hover:shadow-2xl hover:shadow-[#9fef00]/60 hover:brightness-110`;
+const buttonPrimary = `${buttonBase} bg-[#22d3ee] text-black active:bg-[#06b6d4] hover:scale-105 hover:shadow-2xl hover:shadow-[#22d3ee]/60 hover:brightness-110`;
 
 // ---------------------------------------------------------------------------
 // Main component
@@ -170,8 +163,8 @@ export default function HomeClient() {
   // showAntigravity fires 800ms after the page appears (loader gone),
   // timed so the ring forms while the Shuffle strip-reveal is still running.
   const [showAntigravity, setShowAntigravity] = useState(false);
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
   const heroText = useScramble("BLACK CAT CTF", 1200, 400);
-  const taglineRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -186,6 +179,17 @@ export default function HomeClient() {
     const t = setTimeout(() => setShowAntigravity(true), 800);
     return () => clearTimeout(t);
   }, [loading]);
+
+  // Close modal on Escape
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setShowRegisterModal(false);
+    };
+    if (showRegisterModal) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [showRegisterModal]);
 
   return (
     <>
@@ -230,7 +234,7 @@ export default function HomeClient() {
 
             <div className="flex flex-wrap justify-center items-center gap-2 md:gap-6 header-interactive-group w-full md:w-auto mt-2 md:mt-0">
               <div className="cursor-target flex items-center gap-2 md:gap-4 px-2 py-1 rounded-lg transition-all hover:bg-white/5">
-                <span className="text-base md:text-lg font-medium text-white/70 htb-text">HTB</span>
+                <span className="text-base md:text-lg font-medium text-white/70 transition-all duration-300 htb-text">HTB</span>
                 <span className="text-base md:text-lg font-medium text-white/70 chennai-text"> Chennai</span>
                 <span className="text-base md:text-lg font-medium text-white/50">|</span>
                 <span className="text-base md:text-lg font-medium wicys-text">
@@ -256,7 +260,7 @@ export default function HomeClient() {
                   <h1
                     className="glitch text-5xl md:text-6xl lg:text-7xl font-tech font-bold tracking-wider"
                     data-text="BLACK CAT CTF"
-                    style={{ color: "#9fef00", textShadow: "0 0 30px rgba(159,239,0,0.4), 0 2px 4px rgba(0,0,0,0.8)" }}
+                    style={{ color: "#22d3ee", textShadow: "0 0 30px rgba(34,211,238,0.4), 0 2px 4px rgba(0,0,0,0.8)" }}
                   >
                     {heroText}
                   </h1>
@@ -282,7 +286,7 @@ export default function HomeClient() {
                          speed={60}
                          characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*<>?/|[]{}"
                          className="text-white/80"
-                         encryptedClassName="text-[#9fef00]/60"
+                         encryptedClassName="text-[#22d3ee]/60"
                        />
                      </h2>
 
@@ -300,7 +304,7 @@ export default function HomeClient() {
                           waveAmplitude={1}
                           particleSize={1.5}
                           lerpSpeed={0.05}
-                          color="#9fef00"
+                          color="#22d3ee"
                           autoAnimate={true}
                           particleVariance={1}
                           rotationSpeed={0.08}
@@ -316,26 +320,12 @@ export default function HomeClient() {
                   </div>
                 </div>
 
-                {/* Tagline — bold static text on mobile, bold VariableProximity on desktop */}
-                <p className="block sm:hidden mt-1 text-sm font-semibold text-white/90 leading-snug w-full max-w-2xl text-center">
+                {/* Tagline — clean normally bold text */}
+                <p className="mt-1 text-sm sm:text-base font-bold text-white/90 leading-relaxed max-w-2xl text-center sm:text-left">
                   A premier cybersecurity capture the flag competition. Brought to you through a special
                   collaboration between Hack The Box Chennai (SRMIST) and Women in CyberSecurity (WiCyS SRMIST),
                   as we come together to organize this event.
                 </p>
-                <div
-                  ref={taglineRef}
-                  className="hidden sm:block mt-1 text-base text-white/90 leading-relaxed w-full max-w-2xl select-none"
-                >
-                  <VariableProximity
-                    label="A premier cybersecurity capture the flag competition. Brought to you through a special collaboration between Hack The Box Chennai (SRMIST) and Women in CyberSecurity (WiCyS SRMIST), as we come together to organize this event."
-                    className="text-white/90 tracking-wide cursor-default"
-                    fromFontVariationSettings="'wght' 650, 'opsz' 18"
-                    toFontVariationSettings="'wght' 950, 'opsz' 36"
-                    containerRef={taglineRef}
-                    radius={100}
-                    falloff="gaussian"
-                  />
-                </div>
 
                 {/* ── Countdown ──────────────────────────────────────── */}
                 <Countdown />
@@ -349,7 +339,7 @@ export default function HomeClient() {
                       className="absolute inset-[-200%] animate-[spin_3s_linear_infinite] pointer-events-none"
                       style={{
                         background:
-                          "conic-gradient(from 0deg at 50% 50%, transparent 0%, transparent 70%, #9fef00 88%, #ffffff 96%, #9fef00 100%)",
+                          "conic-gradient(from 0deg at 50% 50%, transparent 0%, transparent 70%, #22d3ee 88%, #ffffff 96%, #22d3ee 100%)",
                       }}
                     />
                     {/* Laser Bloom Glow */}
@@ -357,17 +347,16 @@ export default function HomeClient() {
                       className="absolute inset-[-200%] animate-[spin_3s_linear_infinite] pointer-events-none blur-[4px] opacity-80"
                       style={{
                         background:
-                          "conic-gradient(from 0deg at 50% 50%, transparent 0%, transparent 70%, #9fef00 88%, #ffffff 96%, #9fef00 100%)",
+                          "conic-gradient(from 0deg at 50% 50%, transparent 0%, transparent 70%, #22d3ee 88%, #ffffff 96%, #22d3ee 100%)",
                       }}
                     />
-                    <Link
-                      href="https://htbchennai.in/events"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`relative z-10 cursor-target ${buttonPrimary} w-full sm:w-auto shadow-[0_0_24px_rgba(159,239,0,0.35)]`}
+                    <button
+                      type="button"
+                      onClick={() => setShowRegisterModal(true)}
+                      className={`relative z-10 cursor-target ${buttonPrimary} w-full sm:w-auto shadow-[0_0_24px_rgba(34,211,238,0.35)]`}
                     >
                       Register Now
-                    </Link>
+                    </button>
                   </div>
 
                   </div>
@@ -376,10 +365,10 @@ export default function HomeClient() {
               {/* ── Info boxes with Spotlight ───────────────────────────── */}
               <div className="flex flex-col w-full gap-6">
                 <SpotlightCard
-                  spotlightColor="rgba(159, 239, 0, 0.16)"
+                  spotlightColor="rgba(34, 211, 238, 0.16)"
                   className="cursor-target info-box w-full p-6"
                 >
-                  <h3 className="text-xl font-mono font-bold text-[#9fef00] md:w-1/4 md:border-r border-white/10 md:pr-4 md:border-b-0 border-b pb-2 md:pb-0">
+                  <h3 className="text-xl font-mono font-bold text-[#22d3ee] md:w-1/4 md:border-r border-[#22d3ee]/25 md:pr-4 md:border-b-0 border-b pb-2 md:pb-0">
                     About Event
                   </h3>
                   <p className="text-base leading-relaxed text-gray-300 md:w-3/4">
@@ -390,10 +379,10 @@ export default function HomeClient() {
                 </SpotlightCard>
 
                 <SpotlightCard
-                  spotlightColor="rgba(159, 239, 0, 0.16)"
+                  spotlightColor="rgba(34, 211, 238, 0.16)"
                   className="cursor-target info-box w-full p-6"
                 >
-                  <h3 className="text-xl font-mono font-bold text-[#9fef00] md:w-1/4 md:border-r border-white/10 md:pr-4 md:border-b-0 border-b pb-2 md:pb-0">
+                  <h3 className="text-xl font-mono font-bold text-[#22d3ee] md:w-1/4 md:border-r border-[#22d3ee]/25 md:pr-4 md:border-b-0 border-b pb-2 md:pb-0">
                     Event Details
                   </h3>
                   <div className="space-y-2 text-sm text-gray-300 font-mono md:w-3/4">
@@ -408,22 +397,132 @@ export default function HomeClient() {
           </main>
 
           {/* ── Footer ─────────────────────────────────────────────────── */}
-          <footer className="relative z-10 w-full py-8 flex justify-center flex-none">
-            <div className="flex space-x-3">
+          <footer className="relative z-10 w-full py-6 flex flex-col items-center justify-center gap-3.5 flex-none font-mono text-xs sm:text-sm">
+            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+              <Link
+                href="https://www.instagram.com/htbsrmist/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cursor-target flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#22d3ee]/30 bg-black/40 text-white/80 hover:text-[#22d3ee] hover:border-[#22d3ee]/60 hover:shadow-[0_0_14px_rgba(34,211,238,0.35)] transition-all duration-200"
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                </svg>
+                <span>@htbsrmist</span>
+              </Link>
+              <Link
+                href="https://www.instagram.com/wicys_srm/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cursor-target flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#22d3ee]/30 bg-black/40 text-white/80 hover:text-[#22d3ee] hover:border-[#22d3ee]/60 hover:shadow-[0_0_14px_rgba(34,211,238,0.35)] transition-all duration-200"
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                </svg>
+                <span>@wicys_srm</span>
+              </Link>
+            </div>
+
+            {/* 3 Blinking dots positioned below the handles */}
+            <div className="flex space-x-3 pt-1">
               <div
-                className="w-3 h-3 rounded-full animate-pulse-dot"
-                style={{ backgroundColor: "#9fef00", boxShadow: "0 0 8px #9fef00", animationDelay: "0s" }}
+                className="w-2.5 h-2.5 rounded-full animate-pulse-dot"
+                style={{ backgroundColor: "#22d3ee", boxShadow: "0 0 8px #22d3ee", animationDelay: "0s" }}
               />
               <div
-                className="w-3 h-3 rounded-full animate-pulse-dot"
-                style={{ backgroundColor: "#9fef00", boxShadow: "0 0 8px #9fef00", animationDelay: "0.2s" }}
+                className="w-2.5 h-2.5 rounded-full animate-pulse-dot"
+                style={{ backgroundColor: "#22d3ee", boxShadow: "0 0 8px #22d3ee", animationDelay: "0.2s" }}
               />
               <div
-                className="w-3 h-3 rounded-full animate-pulse-dot"
-                style={{ backgroundColor: "#9fef00", boxShadow: "0 0 8px #9fef00", animationDelay: "0.4s" }}
+                className="w-2.5 h-2.5 rounded-full animate-pulse-dot"
+                style={{ backgroundColor: "#22d3ee", boxShadow: "0 0 8px #22d3ee", animationDelay: "0.4s" }}
               />
             </div>
           </footer>
+
+          {/* ── Terminal Google Form Modal ─────────────────────────────── */}
+          {showRegisterModal && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md animate-fade-in font-mono">
+              {/* Backdrop dismiss */}
+              <div
+                className="absolute inset-0 cursor-pointer"
+                onClick={() => setShowRegisterModal(false)}
+                aria-label="Close modal overlay"
+              />
+
+              {/* Terminal Window Container */}
+              <div className="relative z-10 w-full max-w-4xl h-[90vh] max-h-[850px] bg-[#0c0d12] border border-[#22d3ee]/50 rounded-xl shadow-[0_0_50px_rgba(34,211,238,0.3)] flex flex-col overflow-hidden">
+                {/* Terminal Title Bar */}
+                <div className="h-11 bg-[#12141c] border-b border-[#22d3ee]/25 px-4 flex items-center justify-between select-none">
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setShowRegisterModal(false)}
+                      className="cursor-target w-3 h-3 rounded-full bg-[#ff5f56] hover:opacity-80 transition-opacity"
+                      title="Close terminal"
+                    />
+                    <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
+                    <div className="w-3 h-3 rounded-full bg-[#27c93f]" />
+                    <span className="ml-3 text-[11px] sm:text-xs text-cyan-300 font-mono tracking-wider flex items-center gap-1.5">
+                      <span className="text-[#22d3ee]">●</span> root@bc-ctf:~# ./register.sh
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <a
+                      href="https://docs.google.com/forms/d/e/1FAIpQLSf8c8KJWpVS_SCwmwWwSoa1L4eVdIOLHWXyBikLIGd_OOymdw/viewform?pli=1"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="cursor-target text-[11px] sm:text-xs text-[#22d3ee]/80 hover:text-[#22d3ee] underline underline-offset-2 flex items-center gap-1 transition-colors"
+                      title="Open form in new tab"
+                    >
+                      <span>Open external</span>
+                      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                    </a>
+                    <button
+                      type="button"
+                      onClick={() => setShowRegisterModal(false)}
+                      className="cursor-target text-gray-400 hover:text-white px-2 py-0.5 rounded text-sm transition-colors"
+                      aria-label="Close"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                </div>
+
+                {/* Terminal Subheader Banner */}
+                <div className="bg-[#090a0f] border-b border-[#22d3ee]/20 px-4 py-2 text-[11px] sm:text-xs text-gray-400 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[#22d3ee] font-bold">[PORTAL]</span>
+                    <span className="hidden sm:inline">INITIALIZING SECURE REGISTRATION STREAM // FORM_ID: 1FAIpQLSf...</span>
+                    <span className="sm:hidden">REGISTRATION PORTAL</span>
+                  </div>
+                  <span className="text-emerald-400 text-[10px] sm:text-xs flex items-center gap-1 font-semibold">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    ONLINE
+                  </span>
+                </div>
+
+                {/* Terminal Body with Google Form iframe */}
+                <div className="flex-1 w-full bg-white relative overflow-hidden">
+                  <iframe
+                    src="https://docs.google.com/forms/d/e/1FAIpQLSf8c8KJWpVS_SCwmwWwSoa1L4eVdIOLHWXyBikLIGd_OOymdw/viewform?embedded=true"
+                    width="100%"
+                    height="100%"
+                    frameBorder="0"
+                    className="w-full h-full border-0"
+                    title="Black Cat CTF Registration Form"
+                  >
+                    Loading registration form…
+                  </iframe>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </>

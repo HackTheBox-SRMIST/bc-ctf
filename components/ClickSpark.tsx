@@ -21,7 +21,7 @@ interface ClickSparkProps {
 }
 
 export default function ClickSpark({
-  sparkColor = "#9fef00",
+  sparkColor = "#22d3ee",
   sparkCount = 9,
   sparkLength = 12,
   sparkSpeed = 4,
@@ -91,7 +91,7 @@ export default function ClickSpark({
       const x = e.clientX;
       const y = e.clientY;
 
-      const colors = [sparkColor, "#ffffff", "#c2ff53"];
+      const colors = [sparkColor, "#ffffff", "#67e8f9"];
       const newSparks: Spark[] = [];
 
       for (let i = 0; i < sparkCount; i++) {

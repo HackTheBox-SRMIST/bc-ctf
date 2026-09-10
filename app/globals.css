@@ -10,10 +10,10 @@ html, body {
   --color-bg-darker: #050505;
   --color-bg-card: rgba(10, 10, 10, 0.5);
 
-  /* ─── HTB Green — the single accent color ────────── */
-  --color-primary: #9fef00;
-  --color-primary-dim: #7ec900;
-  --color-primary-glow: rgba(159, 239, 0, 0.35);
+  /* ─── Blue / Cyan Accent (matching loading Black Cat CTF text #22d3ee) ── */
+  --color-primary: #22d3ee;
+  --color-primary-dim: #06b6d4;
+  --color-primary-glow: rgba(34, 211, 238, 0.35);
 
   /* ─── Text ───────────────────────────────────────── */
   --color-text: #ffffff;
@@ -21,11 +21,12 @@ html, body {
   --color-text-muted: #555555;
 
   /* ─── Borders ────────────────────────────────────── */
-  --color-border: rgba(159, 239, 0, 0.25);
-  --color-border-glow: rgba(159, 239, 0, 0.12);
+  --color-border: rgba(34, 211, 238, 0.25);
+  --color-border-glow: rgba(34, 211, 238, 0.12);
 
   /* ─── Legacy aliases (kept for back-compat) ──────── */
-  --color-neon-green: #9fef00;
+  --color-neon-green: #22d3ee;
+  --color-neon-cyan: #22d3ee;
   /* Intentionally removed: --color-accent (red), --color-neon-cyan, --color-neon-red */
 }
 
@@ -67,11 +68,11 @@ body {
 @keyframes pulse-dot {
   0%, 100% {
     opacity: 0.3;
-    box-shadow: 0 0 0 rgba(159, 239, 0, 0);
+    box-shadow: 0 0 0 rgba(34, 211, 238, 0);
   }
   50% {
     opacity: 1;
-    box-shadow: 0 0 10px rgba(159, 239, 0, 0.9);
+    box-shadow: 0 0 10px rgba(34, 211, 238, 0.9);
   }
 }
 .animate-pulse-dot {
@@ -155,8 +156,8 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  /* Shifted slightly green-teal for chromatic aberration */
-  color: rgba(0, 255, 120, 0.75);
+  /* Shifted sky/blue for chromatic aberration */
+  color: rgba(56, 189, 248, 0.75);
   animation: glitchTop 2s infinite linear alternate-reverse;
   clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
 }
@@ -168,8 +169,8 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  /* Shifted slightly yellow-white for second aberration ghost */
-  color: rgba(220, 255, 100, 0.55);
+  /* Shifted light cyan-white for second aberration ghost */
+  color: rgba(165, 243, 252, 0.65);
   animation: glitchBottom 1.5s infinite linear alternate-reverse;
   clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
 }
@@ -463,17 +464,20 @@ body {
 html, body { scrollbar-width: none; -ms-overflow-style: none; } html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0px; background: transparent; }
 
 /* ── Info boxes ──────────────────────────────────────────────────────── */
-.info-box { transition: all 0.2s ease-in-out; }
+.info-box {
+  border: 1px solid rgba(34, 211, 238, 0.3) !important;
+  transition: all 0.2s ease-in-out;
+}
 .info-box:hover {
   transform: scale(1.03);
-  box-shadow: 0 0 20px rgba(159, 239, 0, 0.25), 0 0 8px rgba(255,255,255,0.05);
-  border-color: rgba(159, 239, 0, 0.4);
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.25), 0 0 8px rgba(255,255,255,0.05);
+  border-color: rgba(34, 211, 238, 0.7) !important;
 }
 /* Mobile tap feedback */
 .info-box:active {
   transform: scale(1.02);
-  box-shadow: 0 0 16px rgba(159, 239, 0, 0.2), 0 0 8px rgba(255,255,255,0.05);
-  border-color: rgba(159, 239, 0, 0.4);
+  box-shadow: 0 0 16px rgba(34, 211, 238, 0.2), 0 0 8px rgba(255,255,255,0.05);
+  border-color: rgba(34, 211, 238, 0.7) !important;
 }
 
 /* ── Countdown flip-in animation ─────────────────────────────────────── */
@@ -498,9 +502,10 @@ html, body { scrollbar-width: none; -ms-overflow-style: none; } html::-webkit-sc
 
 /* ── Header interactive group ────────────────────────────────────────── */
 .header-interactive-group { transition: all 0.3s ease-in-out; }
+/* HTB brand color intentionally preserved */
 .header-interactive-group:hover .htb-text {
-  text-shadow: 0 0 8px var(--color-primary);
-  color: var(--color-primary);
+  text-shadow: 0 0 8px #9fef00;
+  color: #9fef00;
 }
 .header-interactive-group:hover .chennai-text {
   text-shadow: 0 0 8px var(--color-text);

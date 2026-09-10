@@ -248,14 +248,14 @@ export default function TargetCursor({
       if (cursorColorOnTarget) {
         gsap.to(corners, {
           borderColor: cursorColorOnTarget,
-          filter: "drop-shadow(0 0 6px #9fef00)",
+          filter: `drop-shadow(0 0 6px ${cursorColorOnTarget})`,
           duration: 0.15,
           ease: "power2.out",
         });
         if (dotRef.current) {
           gsap.to(dotRef.current, {
             backgroundColor: cursorColorOnTarget,
-            filter: "drop-shadow(0 0 6px #9fef00)",
+            filter: `drop-shadow(0 0 6px ${cursorColorOnTarget})`,
             duration: 0.15,
             ease: "power2.out",
           });
