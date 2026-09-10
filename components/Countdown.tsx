@@ -43,26 +43,26 @@ function TimeUnit({ value, label }: UnitProps) {
     <div className="flex flex-col items-center gap-1.5 sm:gap-2">
       {/* Translucent glassmorphism scoreboard card */}
       <div
-        className="cursor-target relative flex items-center justify-center rounded-xl overflow-hidden select-none transition-all duration-200 hover:border-[#9fef00]/40 hover:shadow-[0_0_18px_rgba(159,239,0,0.2)]"
+        className="cursor-target relative flex items-center justify-center rounded-xl overflow-hidden select-none transition-all duration-200 hover:border-[#22d3ee]/40 hover:shadow-[0_0_18px_rgba(34,211,238,0.2)]"
         style={{
           width: "clamp(3.25rem, 10vw, 5.5rem)",
           height: "clamp(3.25rem, 10vw, 5.5rem)",
           background: "rgba(255, 255, 255, 0.03)",
           backdropFilter: "blur(6px)",
           WebkitBackdropFilter: "blur(6px)",
-          border: "1px solid rgba(255, 255, 255, 0.12)",
+          border: "1px solid rgba(34, 211, 238, 0.25)",
           boxShadow:
-            "inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 4px 16px rgba(0, 0, 0, 0.2)",
+            "inset 0 1px 0 rgba(34, 211, 238, 0.2), 0 4px 16px rgba(0, 0, 0, 0.2)",
           perspective: "300px",
         }}
       >
-        {/* Flip digit - inside number with slight greenish color matching HTB theme */}
+        {/* Flip digit - inside number with bluish cyan color */}
         <span
           key={value}
-          className="animate-flip-in font-tech tabular-nums tracking-widest text-[#bbfb52] inline-block"
+          className="animate-flip-in font-tech tabular-nums tracking-widest text-[#22d3ee] inline-block"
           style={{
             fontSize: "clamp(1.25rem, 5vw, 2.25rem)",
-            textShadow: "0 0 20px rgba(159, 239, 0, 0.5)",
+            textShadow: "0 0 20px rgba(34, 211, 238, 0.5)",
           }}
         >
           {value}
@@ -86,9 +86,9 @@ function TimeUnit({ value, label }: UnitProps) {
 function Separator() {
   return (
     <div
-      className="flex items-center justify-center self-center text-xl sm:text-2xl md:text-3xl text-[#9fef00] select-none animate-pulse font-tech"
+      className="flex items-center justify-center self-center text-xl sm:text-2xl md:text-3xl text-[#22d3ee] select-none animate-pulse font-tech"
       style={{
-        textShadow: "0 0 12px rgba(159, 239, 0, 0.8)",
+        textShadow: "0 0 12px rgba(34, 211, 238, 0.8)",
         marginBottom: "clamp(1rem, 2.5vw, 1.5rem)",
       }}
       aria-hidden
@@ -109,7 +109,7 @@ export default function Countdown() {
 
   if (timeLeft.expired) {
     return (
-      <div className="font-tech text-xl text-[#9fef00] tracking-widest animate-pulse">
+      <div className="font-tech text-xl text-[#22d3ee] tracking-widest animate-pulse">
         EVENT IS LIVE
       </div>
     );
