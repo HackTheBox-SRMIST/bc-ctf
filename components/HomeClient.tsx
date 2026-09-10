@@ -162,8 +162,6 @@ const buttonBase =
 // HTB green — the ONLY saturated-colour element on the page
 const buttonPrimary = `${buttonBase} bg-[#9fef00] text-black active:bg-[#7ec900] hover:scale-105 hover:shadow-2xl hover:shadow-[#9fef00]/60 hover:brightness-110`;
 
-const buttonSecondary = `${buttonBase} border-2 border-white/60 text-white bg-transparent active:bg-white/10 hover:bg-white/10 hover:border-white hover:shadow-xl hover:shadow-white/20`;
-
 // ---------------------------------------------------------------------------
 // Main component
 // ---------------------------------------------------------------------------
@@ -372,17 +370,8 @@ export default function HomeClient() {
                     </Link>
                   </div>
 
-                  {/* Join Event Group with White Glow & WhatsApp link */}
-                  <Link
-                    href="https://chat.whatsapp.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`cursor-target ${buttonSecondary} w-full sm:w-auto !border-white text-white shadow-[0_0_22px_rgba(255,255,255,0.45),inset_0_0_12px_rgba(255,255,255,0.2)] hover:shadow-[0_0_35px_rgba(255,255,255,0.85),inset_0_0_20px_rgba(255,255,255,0.35)] hover:bg-white/15 active:bg-white active:text-black active:shadow-[0_0_50px_#ffffff,inset_0_0_30px_#ffffff] active:scale-95 transition-all duration-200`}
-                  >
-                    Join Event Group
-                  </Link>
+                  </div>
                 </div>
-              </div>
 
               {/* ── Info boxes with Spotlight ───────────────────────────── */}
               <div className="flex flex-col w-full gap-6">
@@ -409,10 +398,9 @@ export default function HomeClient() {
                   </h3>
                   <div className="space-y-2 text-sm text-gray-300 font-mono md:w-3/4">
                     <p><span className="font-semibold text-white">Category:</span> Cybersecurity, CTF, Jeopardy</p>
-                    <p><span className="font-semibold text-white">Venue:</span> Mini Hall 2, SRM IST</p>
+                    <p><span className="font-semibold text-white">Venue:</span> TP2 4th Floor</p>
                     <p><span className="font-semibold text-white">Date:</span> September 19th, 2026</p>
                     <p><span className="font-semibold text-white">Time:</span> 10:00 AM IST</p>
-                    <p><span className="font-semibold text-white">Pre-Requisites:</span> Charged laptop with Kali Linux (VMware/VirtualBox).</p>
                   </div>
                 </SpotlightCard>
               </div>
