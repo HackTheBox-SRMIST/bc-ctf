@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 
-// Event date: 19 September 2026, 10:00 AM IST (UTC+5:30)
-const EVENT_DATE = new Date("2026-09-19T10:00:00+05:30");
+// Event date: 30 September 2026, 10:00 AM IST (UTC+5:30)
+const EVENT_DATE = new Date("2026-09-30T10:00:00+05:30");
 
 interface TimeLeft {
   days: number;
