@@ -387,8 +387,8 @@ export default function HomeClient() {
                   </h3>
                   <div className="space-y-2 text-sm text-gray-300 font-mono md:w-3/4">
                     <p><span className="font-semibold text-white">Category:</span> Cybersecurity, CTF, Jeopardy</p>
-                    <p><span className="font-semibold text-white">Venue:</span> TP2 4th Floor</p>
-                    <p><span className="font-semibold text-white">Date:</span> September 19th, 2026</p>
+                    <p><span className="font-semibold text-white">Venue:</span> TP307/316</p>
+                    <p><span className="font-semibold text-white">Date:</span> September 30th, 2026</p>
                     <p><span className="font-semibold text-white">Time:</span> 10:00 AM IST</p>
                   </div>
                 </SpotlightCard>
